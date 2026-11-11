@@ -11,6 +11,7 @@ Corre en el plan gratis de Render, así que se duerme cuando no se usa: la prime
 | Archivo | Qué es |
 | --- | --- |
 | `HayPaComer - Presentacion.pptx` | Las 19 diapositivas, con las notas del orador de cada una |
+| `HayPaComer - Presentacion.pdf` | La misma presentación exportada a PDF |
 | `Plan de Pruebas HayPaComer.xlsx` | Plan de pruebas en la plantilla del curso: 25 casos (21 unitarios y 4 de integración), los 25 aprobados el 10/11/2026 |
 | `guion-jenifer.md` | Guion de Jenifer para las diapositivas 8, 10, 11 y 13, con respuestas para preguntas |
 | `tablero-board.png` | Captura del tablero de GitHub Projects por estado |

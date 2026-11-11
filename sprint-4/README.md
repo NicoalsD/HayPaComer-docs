@@ -8,6 +8,7 @@ Sprint 4 (2 al 15 de noviembre de 2026) cierra las pruebas de la versión 1.2.0.
 - [4. Catálogo completo de pruebas](#4-catálogo-completo-de-pruebas)
 - [5. Asignación de tareas](#5-asignación-de-tareas)
 - [6. Bloqueos encontrados y soluciones](#6-bloqueos-encontrados-y-soluciones)
+- [7. Scripts de la demo verificados con la v1.2.0](#7-scripts-de-la-demo-verificados-con-la-v120)
 
 Las capturas de código se generaron directamente desde los archivos del repositorio en el commit `e8d28ac`, y las de resultados son líneas copiadas tal cual del log del CI. Ninguna está editada a mano.
 
@@ -1001,7 +1002,7 @@ El tablero es [GitHub Projects](https://github.com/users/NicoalsD/projects/1), c
 
 | Integrante | Tareas | Hechas | En progreso | Backlog |
 | --- | ---: | ---: | ---: | ---: |
-| Nicolas Diaz (`NicoalsD`) | 4 | 0 | 3 | 1 |
+| Nicolas Diaz (`NicoalsD`) | 4 | 1 | 2 | 1 |
 | Jenifer Urbano (`Jenifrutica`) | 17 | 15 | 0 | 2 |
 | Juan Camilo Lopez (`Juansit-0`) | 24 | 21 | 0 | 3 |
 
@@ -1044,7 +1045,7 @@ El tablero es [GitHub Projects](https://github.com/users/NicoalsD/projects/1), c
 | [#35](https://github.com/NicoalsD/HayPaComer-docs/issues/35) | Carcasas imprimibles para los dos nodos de sensores | Juan Camilo Lopez (`Juansit-0`) | firmware | Sprint 3 | Hecho |
 | [#36](https://github.com/NicoalsD/HayPaComer-docs/issues/36) | Pruebas completas de v1.2.0 contra el backend real y lanzamiento | Juan Camilo Lopez (`Juansit-0`) | qa | Sprint 4 | Hecho |
 | [#37](https://github.com/NicoalsD/HayPaComer-docs/issues/37) | Plan de pruebas en la plantilla Excel del curso | Nicolas Diaz (`NicoalsD`) | qa | Sprint 4 | En progreso |
-| [#38](https://github.com/NicoalsD/HayPaComer-docs/issues/38) | Tablero y sprints en GitHub Projects | Nicolas Diaz (`NicoalsD`) | docs | Sprint 4 | En progreso |
+| [#38](https://github.com/NicoalsD/HayPaComer-docs/issues/38) | Tablero y sprints en GitHub Projects | Nicolas Diaz (`NicoalsD`) | docs | Sprint 4 | Hecho |
 | [#39](https://github.com/NicoalsD/HayPaComer-docs/issues/39) | Presentación final del proyecto | Nicolas Diaz (`NicoalsD`) | docs | Sprint 4 | En progreso |
 | [#40](https://github.com/NicoalsD/HayPaComer-docs/issues/40) | Ensayo y QA de la demo de 12 minutos | Nicolas Diaz (`NicoalsD`) | qa | Sprint 4 | Backlog |
 | [#41](https://github.com/NicoalsD/HayPaComer-docs/issues/41) | Bloqueo: producción no envía correo y la recuperación de contraseña no funciona | Jenifer Urbano (`Jenifrutica`) | backend | Sprint 5 | Backlog |
@@ -1086,3 +1087,8 @@ Según el `CHANGELOG.md` 1.2.0 y las notas de la entrega, en la v1.2 también se
 Durante el desarrollo también hubo choques de número de migración Flyway al trabajar en paralelo.
 
 Fuentes: issues del tablero, `CHANGELOG.md` 1.2.0, [`docs/tasks/step-89-demo-flow-noise.md`](../docs/tasks/step-89-demo-flow-noise.md), ADR 0002 y 0014, log del [CI de la v1.2.0](https://github.com/Juansit-0/HayPaComer-backend/actions/runs/42324439173).
+
+## 7. Scripts de la demo verificados con la v1.2.0
+
+`seed.py` y `sensors.py` (issue [#40](https://github.com/NicoalsD/HayPaComer-docs/issues/40)) venían de la v1.1.0. El 11/11/2026 se probaron contra la v1.2.0 con una base vacía y se encontró un bloqueo: los enlaces de invitación cambiaron de `#token=` a `#/join?token=`, así que `seed.py` no unía a Ana al hogar. Se corrigió el patrón y la demo completa funciona: leche de 842 g a 650 g, yogur privado con 403 para Ana, alertas `DOOR_LEFT_OPEN` y `COLD_CHAIN_BREACH`, y la lectura inestable descartada. Los scripts corregidos y el detalle están en [`scripts/demo`](../scripts/demo/README.md).
+
