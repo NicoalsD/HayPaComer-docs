@@ -1,6 +1,6 @@
 # Sprint 4: pruebas automatizadas, tareas y bloqueos
 
-Sprint 4 (2 al 15 de noviembre de 2026) cierra las pruebas de la versión 1.2.0. El backend tiene **800 pruebas automáticas en 212 clases** y todas pasan en el CI de GitHub ([run 42324439173](https://github.com/Juansit-0/HayPaComer-backend/actions/runs/42324439173), 7 de noviembre de 2026, commit `e8d28ac`). Este documento reúne en un solo lugar todas las pruebas unitarias y de integración, cómo se automatizó cada una, las capturas del código y de los resultados, quién es responsable de cada tarea y los bloqueos con su solución.
+Sprint 4 (2 al 15 de noviembre de 2026) cierra las pruebas de la versión 1.2.0. El backend tiene **800 pruebas automáticas en 212 clases**: todas pasaron en local el 11/11/2026 y en el CI de GitHub ([run 42324439173](https://github.com/Juansit-0/HayPaComer-backend/actions/runs/42324439173), 7 de noviembre de 2026, commit `e8d28ac`). Este documento reúne en un solo lugar todas las pruebas unitarias y de integración, cómo se automatizó cada una, las capturas del código y de los resultados, quién es responsable de cada tarea y los bloqueos con su solución.
 
 - [1. Cómo se automatizan las pruebas](#1-cómo-se-automatizan-las-pruebas)
 - [2. Resultados](#2-resultados)
@@ -78,7 +78,29 @@ Prueba de que las pruebas de integración usaron bases de datos reales:
 
 ![Testcontainers en el CI](img/resultado-testcontainers.png)
 
-**Ejecución local del 10/11/2026** (plan de pruebas, Docker con JDK 25): 800 ejecutadas, 797 aprobadas. Los 3 fallos fueron del módulo `web`, porque en esa ejecución no se copió la interfaz estática dentro del `.jar`, paso que el CI sí hace. No son defectos del código.
+### Ejecución local del 11/11/2026: 800 de 800
+
+Se repitió la suite completa en un computador del equipo, con Docker y JDK 25, sobre el mismo commit `e8d28ac` y con la interfaz web copiada como hace el CI. Resultado: **800 pruebas, 0 fallos, `BUILD SUCCESS` en 8:40 min**. Las pruebas de integración levantaron PostgreSQL 18 y Redis 8 reales con Testcontainers; ninguna se omitió.
+
+Comando usado (desde la carpeta del backend):
+
+```
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD":/work -v hpc-m2:/root/.m2 -w /work \
+  -e TESTCONTAINERS_HOST_OVERRIDE=host.docker.internal -e JAVA_TOOL_OPTIONS=-Xmx2g -e MAVEN_OPTS=-Xmx512m \
+  --add-host=host.docker.internal:host-gateway maven:3-eclipse-temurin-25 mvn -B -ntp verify
+```
+
+![Resultado de la ejecución local](img/resultado-local.png)
+
+Nota: con la memoria por defecto de Docker Desktop (3,9 GB) la primera ejecución falló por `OutOfMemoryError` en ArchUnit, que carga todas las clases del proyecto. Se resolvió dándole 2 GB a la JVM de las pruebas (`JAVA_TOOL_OPTIONS=-Xmx2g`). No es un defecto del código.
+
+En la ejecución anterior del 10/11/2026 (la del plan de pruebas) hubo 797 de 800: los 3 fallos de `web` fueron porque no se copió la interfaz estática dentro del `.jar`. Con ese paso hecho, el 11/11 pasaron las 800.
+
+### Pruebas de la interfaz web: 23 de 23
+
+`npm run check` en `HayPaComer-web` (commit `bdf3878`), 11/11/2026: primero verifica que todos los textos existan en español e inglés y después corre las 23 pruebas con `node --test`.
+
+![Resultado de las pruebas web](img/resultado-web.png)
 
 ## 3. Los 25 casos del plan de pruebas, uno por uno
 
@@ -374,7 +396,9 @@ En el CI la clase `ToolRegistryTest` corrió 5 pruebas con 0 fallos en 0.01 s.
 
 ![Código de QA021](img/qa021-codigo.png)
 
-Este repositorio no corre las pruebas en su CI (solo despliega), así que no hay log de GitHub. Se ejecutó a mano el 10/11/2026 con `npm run check`: 9 de 9 pruebas del lote aprobadas.
+Este repositorio no corre las pruebas en su CI (solo despliega). Se ejecutó con `npm run check` el 10/11/2026 (plan de pruebas) y de nuevo el 11/11/2026: 23 de 23 pruebas aprobadas, incluida esta.
+
+![Resultado de las pruebas web](img/resultado-web.png)
 
 
 
@@ -973,7 +997,7 @@ Carpeta: [tools/checks](https://github.com/Juansit-0/HayPaComer-web/tree/main/to
 
 ## 5. Asignación de tareas
 
-El tablero es [GitHub Projects](https://github.com/users/NicoalsD/projects/1), con 45 issues en 6 sprints. Cada issue tiene un responsable en el campo **Responsable** del tablero y al final de su descripción. Este es el reparto completo:
+El tablero es [GitHub Projects](https://github.com/users/NicoalsD/projects/1), con 45 issues en 6 sprints. Cada issue está **asignado en GitHub** a su responsable (columna Assignees del tablero), coincide con el campo **Responsable** y aparece también al final de su descripción. Este es el reparto completo:
 
 | Integrante | Tareas | Hechas | En progreso | Backlog |
 | --- | ---: | ---: | ---: | ---: |
