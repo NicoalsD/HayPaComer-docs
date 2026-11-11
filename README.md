@@ -9,4 +9,5 @@ The documentation of **HayPaComer**, the smart fridge that answers "what can I c
 - `docs/`: architecture, data model, REST API, event protocol, GoF patterns, responsible AI, firmware, hardware, demo script, production runbook, ADRs, and the original proposal;
 - `brand/`: naming, positioning, voice, identity, and design tokens;
 - `PLAN.md` and `CHANGELOG.md`: the master plan and the release history;
+- `sprint-4/`: every automated test (unit and integration) with how it is automated, code and CI result captures, the task assignment, and the blockers with their solutions (in Spanish);
 - `presentacion/`: the v1.2.0 class presentation, test plan, planning board screenshots, and speaker script (in Spanish).
