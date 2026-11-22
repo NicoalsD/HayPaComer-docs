@@ -1,0 +1,48 @@
+OK   la raíz muestra la landing 
+OK   botones de cuenta de prueba 
+OK   alta ofrece crear o unirse con código 
+OK   nevera configurada 
+OK   el panel de agregar lista todo el catálogo 
+OK   buscar 'tomate' muestra Tomate 
+OK   lata abre en unidades 
+OK   fila muestra 2 unidades 
+OK   código de casa visible 
+OK   renombrar actualiza el encabezado 
+OK   creador ve Eliminar casa 
+OK   crear bloqueado estando en una casa 
+OK   integrante ve Salir de la casa 
+OK   integrante no puede sacar a nadie 
+OK   integrante ve Pedir permiso 
+OK   tras pedir, queda esperando 
+OK   campana con aviso para el dueño 
+FAIL la notificación dice quién pidió AlertasCerrarMarcar todas como leídas
+            
+      
+      
+        Food request Dos asked to use your Beer can
+        22 de nov 09:45 p. m.
+        
+    
+OK   dueño ve Permitir en la nevera 
+FAIL quien pidió recibe la respuesta AlertasCerrarMarcar todas como leídas
+            
+      
+      
+        Answer to your request Uno let you use Beer can
+        22 de nov 09:45 p. m.
+        
+
+OK   pestaña now carga 
+OK   pestaña fridge carga 
+OK   pestaña market carga 
+OK   pestaña numbers carga 
+OK   pestaña chef carga 
+OK   pestaña home carga 
+OK   pestaña settings carga 
+FAIL sin errores de consola (uno) Failed to load resource: the server responded with a status of 404 ()
+OK   sin errores de consola (dos) 
+OK   al agrandar aparece la cocina 3D sin recargar 
+OK   sin desborde horizontal tras agrandar 
+OK   cerrar sesión lleva al login 
+
+29/32 OK

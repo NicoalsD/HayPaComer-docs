@@ -1,0 +1,151 @@
+OK   POST POST /auth/register tmp-a@local.test 201 
+OK   POST POST /auth/login 200 
+OK   POST POST /auth/register tmp-b@local.test 201 
+OK   POST POST /auth/login 200 
+OK   POST POST /auth/register tmp-c@local.test 201 
+OK   POST POST /auth/login 200 
+OK   GET /status 200 
+OK   GET /i18n 200 
+OK   GET /i18n/es-CO 200 
+OK   GET /auth/demo 200 
+OK   GET /fridge-examples 200 
+OK   GET /settings/defaults 200 
+OK   GET /recipe-templates 200 
+OK   GET /foods?q=cerv 200 
+OK   GET /me 200 
+OK   PUT /me/locale 200 
+OK   GET /me/notification-preferences 200 
+OK   PUT /me/notification-preferences 200 
+OK   GET /notifications 200 
+OK   POST POST /auth/refresh 200 
+OK   GET GET /me sin sesión -> 401 401 
+OK   POST /auth/forgot-password 202 
+OK   POST /households 201 
+OK   POST POST /households con casa -> 409 409 
+OK   GET /households 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/join-code 200 
+OK   POST POST /households/join código falso -> 400 400 
+OK   POST POST /households/join (minúsculas) 200 
+OK   POST POST /households/join repetido -> 409 409 
+OK   GET GET join-code como integrante 200 
+OK   PATCH PATCH casa como integrante 200 
+OK   POST POST join-code (nuevo, creador) 201 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/join-code 200 
+OK   POST /households 201 
+OK   POST join estando en otra casa -> 409 409 
+OK   DELETE DELETE casa propia (C) 204 
+OK   POST join tras eliminar su casa 200 
+OK   GET /me 200 
+OK   GET /me 200 
+OK   DELETE integrante saca a otro -> 403 403 
+OK   DELETE creador saca a C 204 
+OK   DELETE integrante elimina casa -> 403 403 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/profiles 200 
+OK   PUT /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/profile 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/settings 200 
+OK   PUT PUT settings como integrante 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/invitations 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/invitations 201 
+OK   DELETE /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/invitations/c6f6eddf-3dcc-4a7e-ac36-a828282ffcff 204 
+OK   POST POST fridges como integrante 201 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/fridges 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/fridges/63f67c01-fff4-4619-84bc-80cb27073f61/shape 200 
+OK   PUT PUT shape como integrante 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/fridges 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/fridges/63f67c01-fff4-4619-84bc-80cb27073f61/twin 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/fridges/63f67c01-fff4-4619-84bc-80cb27073f61/space 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/fridges/63f67c01-fff4-4619-84bc-80cb27073f61/session 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/cold-chain 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/cold-investigation?fridgeId=63f67c01-fff4-4619-84bc-80cb27073f61&hours=24 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/expiry-estimate?food=Milk&zone=SHELF&opened=false 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/foods/density?food=Milk 200 
+OK   POST /foods/interpret 200 
+OK   POST POST items por unidades (2 latas, preguntar antes) 201 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/items 201 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/items 201 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/inventory 200 
+OK   CHECK inventario: 2 latas con pieceGrams 360 360.0 
+OK   CHECK privado oculto para B  
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/inventory?rescueFirst=true 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/kitchen 200 
+OK   POST consumir 'preguntar antes' sin permiso -> 403 403 
+OK   POST pedir permiso 201 
+OK   POST pedir permiso dos veces (misma solicitud) 201 
+OK   POST aprobar su propia solicitud -> 403 403 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/access-requests 200 
+OK   CHECK A ve la solicitud por responder  
+OK   GET /notifications 200 
+OK   CHECK A recibe notificación de la solicitud  
+OK   GET /notifications 200 
+OK   CHECK B no recibe la notificación de A  
+OK   POST aprobar 200 
+OK   GET /notifications 200 
+OK   CHECK B recibe notificación de la respuesta  
+OK   POST responder dos veces -> 409 409 
+OK   POST consumir con permiso 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/inventory 200 
+OK   CHECK queda 1 lata tras consumir 1 360.0 
+OK   POST consumir privado ajeno -> 403 403 
+OK   PUT cambiar visibilidad ajena -> 403 403 
+OK   PUT cambiar visibilidad propia 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/items/3e01e038-64c1-4172-b64c-0aec8b67fbf2/grants 200 
+OK   DELETE /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/items/3e01e038-64c1-4172-b64c-0aec8b67fbf2/grants/e3a7b4b8-c8ae-47df-82ef-189bff44c61e 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/items/5b9aef90-066c-4952-a4e3-f0d1f33aeb14/open 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/items/5b9aef90-066c-4952-a4e3-f0d1f33aeb14/move 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/snapshots 201 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/snapshots 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/items/5b9aef90-066c-4952-a4e3-f0d1f33aeb14/discard 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/inventory/undo 200 
+OK   POST restaurar snapshot como integrante 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/activity?limit=20 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/market-list 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/market-list/items 201 
+OK   PATCH /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/market-list/items/ccf2d110-e67b-4864-9df0-b59b2506fe66 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/market-list/items/ccf2d110-e67b-4864-9df0-b59b2506fe66/check 200 
+OK   DELETE /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/market-list/items/ccf2d110-e67b-4864-9df0-b59b2506fe66/check 200 
+OK   DELETE /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/market-list/items/ccf2d110-e67b-4864-9df0-b59b2506fe66 200 
+OK   DELETE /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/market-list/checked 200 
+OK   GET GET market-budget sin presupuesto -> 404 404 
+OK   PUT /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/market-budget 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/market-budget 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/prices 200 
+OK   PUT /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/prices 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/analytics 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/analytics/weekly-digest 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/analytics/report?format=CSV 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/recipes 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/recipes 201 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/recipes/evaluate 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/recipes/missing-to-market 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/suggestions 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/rescue 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/weekly-plans 201 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/weekly-plans/current 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/market-list/from-plan 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/cooking-sessions 201 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/cooking-sessions/active 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/cooking-sessions/eb7720c9-6379-434c-8ba9-cb34f6ba768c 200 
+OK   POST pausar antes de empezar -> 409 409 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/cooking-sessions/eb7720c9-6379-434c-8ba9-cb34f6ba768c/next 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/cooking-sessions/eb7720c9-6379-434c-8ba9-cb34f6ba768c/pause 200 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/cooking-sessions/eb7720c9-6379-434c-8ba9-cb34f6ba768c/resume 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/cooking-sessions/eb7720c9-6379-434c-8ba9-cb34f6ba768c/timer 204 
+OK   POST /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/cooking-sessions/eb7720c9-6379-434c-8ba9-cb34f6ba768c/abandon 200 
+OK   POST POST devices como integrante 201 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/devices 200 
+OK   GET /device/whoami con clave 200 
+OK   DELETE /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/devices/757f3c40-4f4c-4217-a1ed-c49aee03ab08 204 
+OK   POST IA: aprender alimento 200 
+OK   POST IA: chat del chef 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/agent/conversations 200 
+OK   GET /households/1103b7a5-d47c-490c-bce6-aa997f4d85d2/agent/memory 200 
+OK   DELETE B sale de la casa 204 
+OK   GET B ya no ve la casa 404 
+OK   DELETE A elimina la casa 204 
+OK   GET /households 200 
+OK   POST /auth/logout 204 
+
+147/147 OK
+IA aprendió: Gaseosa Postobón en lata
+chef respondió: {'conversationId': 'd86caa3a-855c-4aa4-929f-ea53c5a3e44d', 'answer': 'No hay recetas guardadas que c

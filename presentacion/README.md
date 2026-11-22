@@ -10,6 +10,7 @@ Corre en el plan gratis de Render, así que se duerme cuando no se usa: la prime
 
 | Archivo | Qué es |
 | --- | --- |
+| `HayPaComer - Calidad (sprint 5).pptx` / `.pdf` | **Presentación de Calidad de Software** (13 diapositivas, con notas): foto del tablero, niveles de prueba, cómo se automatizaron, las 3 pruebas automatizadas con su código y resultado, defectos encontrados, qué se hizo con agentes de IA, quién trabajó en qué y bloqueos |
 | `HayPaComer - Presentacion.pptx` | Las 19 diapositivas, con las notas del orador de cada una |
 | `HayPaComer - Presentacion.pdf` | La misma presentación exportada a PDF |
 | `Plan de Pruebas HayPaComer.xlsx` | Plan de pruebas en la plantilla del curso: 25 casos (21 unitarios y 4 de integración), los 25 aprobados el 10/11/2026 |
@@ -17,6 +18,10 @@ Corre en el plan gratis de Render, así que se duerme cuando no se usa: la prime
 | `tablero-board.png` | Captura del tablero de GitHub Projects por estado |
 | `tablero-sprints.png` | Captura del mismo tablero por sprint |
 
-Pruebas automatizadas, asignación de tareas y bloqueos del sprint 4: [`../sprint-4/README.md`](../sprint-4/README.md)
+Documento de pruebas actual (unitarias, integración y automatizadas, con scripts y resultados): [`../pruebas/README.md`](../pruebas/README.md)
+
+Scripts de extremo a extremo: [`../scripts/qa`](../scripts/qa/README.md)
+
+Pruebas, asignación de tareas y bloqueos del sprint 4 (v1.2.0, los 25 casos del plan): [`../sprint-4/README.md`](../sprint-4/README.md)
 
 Tablero de planeación: https://github.com/users/NicoalsD/projects/1
