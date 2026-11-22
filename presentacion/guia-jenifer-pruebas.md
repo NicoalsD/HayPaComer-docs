@@ -119,14 +119,22 @@ La idea que hay que transmitir: **una prueba vale por lo que encuentra.**
 
 | Defecto | Cómo se encontró | Por qué pasaba | Estado |
 | --- | --- | --- | --- |
-| Notificaciones en inglés ("Food request…") | La prueba de navegador esperaba el texto en español y no lo encontró | El servidor traduce sus frases desde la tabla `message_templates`, y las de permisos se guardaron en `translations` | Abierto: moverlas de tabla |
-| 404 en la consola | La prueba de navegador revisa que no haya errores en la consola | Un recurso que no existe; por identificar | Abierto |
+| Notificaciones en inglés ("Food request…") | La prueba de navegador esperaba el texto en español y no lo encontró | El servidor traduce sus frases desde la tabla `message_templates`, y las de permisos se guardaron en `translations` | Abierto, planeado en #46 (sprint 5) |
+| 404 en la consola | La prueba de navegador revisa que no haya errores en la consola | `GET /market-budget` responde 404 cuando la casa aún no tiene presupuesto, que es un estado normal | Abierto, planeado en #47 (sprint 5) |
 | "Tomate" duplicado | Lo vimos probando y lo confirmó la prueba de navegador | La IA aprendía "Tomate" como alimento nuevo, aparte de "Tomato" | Resuelto: la migración V90 los une, y buscar por el nombre en español devuelve el original |
 | El tomate no salía al agregar | Probando la app | El catálogo se cortaba en 60 alimentos y ya hay 72 | Resuelto |
 | Eliminar casa daba 409 | `smoke_api.py` | Una llave foránea (`granted_by`) sin borrado en cascada | Resuelto: los permisos se borran primero |
 | La comida vencida no viajaba | `MovingFoodIntegrationTest` | Una fecha ya pasada no se aceptaba al desempacar | Resuelto: se usa una fecha estimada |
 
 Cada defecto resuelto queda **vigilado por su prueba**: si alguien lo vuelve a romper, el CI lo bloquea.
+
+### Por qué hay dos abiertos (decirlo así si preguntan)
+
+> "No los corregimos en esta entrega por una restricción: la entrega de Calidad se trabaja solo en el repositorio de documentación, y los repositorios de código no se tocan. Lo correcto en calidad no es esconderlos: los documentamos con su causa y los registramos en el tablero como issues 46 y 47 del sprint 5, cada uno con su solución y con la prueba que va a confirmar que quedó resuelto."
+
+- **#46, notificaciones en inglés:** una migración nueva (V91) copia las frases a la tabla correcta. Se verifica con una prueba de integración y con `e2e_ui.py`.
+- **#47, el 404:** la API responde 204, sin contenido, cuando no hay presupuesto, en vez de 404. Se verifica actualizando `smoke_api.py` y con `e2e_ui.py`.
+- **Ninguno pierde datos ni deja pasar a nadie sin permiso:** las 147 comprobaciones de la API lo confirman. Son un idioma y un mensaje en la consola.
 
 ## 4 · Diapositiva 11 · Qué se hizo con agentes de IA
 

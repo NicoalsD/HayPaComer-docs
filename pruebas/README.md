@@ -143,12 +143,25 @@ Además se actualizó una decena de pruebas existentes que verificaban la regla 
 
 | # | Encontrado por | Defecto | Causa | Estado |
 | --- | --- | --- | --- | --- |
-| 1 | `e2e_ui.py` (21/11) | Las notificaciones de permisos salen en inglés ("Food request · Dos asked to use your Beer can") | Las frases del servidor se traducen desde la tabla `message_templates`, y las migraciones V83, V85 y V89 las escribieron en `translations` | Abierto: pasar esas filas a `message_templates` en una migración nueva |
-| 2 | `e2e_ui.py` (21/11) | Un recurso responde 404 en la consola del navegador durante el recorrido | Por identificar | Abierto |
+| 1 | `e2e_ui.py` (21/11) | Las notificaciones de permisos salen en inglés ("Food request · Dos asked to use your Beer can") | Las frases del servidor se traducen desde la tabla `message_templates`, y las migraciones V83, V85 y V89 las escribieron en `translations` | Abierto, planeado: [#46](https://github.com/NicoalsD/HayPaComer-docs/issues/46), sprint 5 |
+| 2 | `e2e_ui.py` (21/11) | `GET /market-budget` responde 404 y el navegador lo registra como error | Que una casa aún no tenga presupuesto es un estado normal, pero la API lo responde como "no encontrado". La interfaz no se rompe; solo queda el error en la consola | Abierto, planeado: [#47](https://github.com/NicoalsD/HayPaComer-docs/issues/47), sprint 5 |
 | 3 | Prueba manual + `e2e_ui.py` | "Tomate" aparecía dos veces en el catálogo: el de la IA y el original | La IA aprendía el nombre en español como un alimento nuevo | **Resuelto** (V90 y búsqueda por nombre traducido) |
 | 4 | Prueba manual | El panel de agregar no mostraba el tomate | El catálogo se cortaba en 60 alimentos y ya hay 72 | **Resuelto** |
 | 5 | `smoke_api.py` | Eliminar una casa daba 409 | `food_access_grants.granted_by` no se borra en cascada | **Resuelto** (se borran los permisos primero) |
 | 6 | `MovingFoodIntegrationTest` | La comida con fecha vencida no se podía llevar a la nueva casa | La fecha ya no era posible al desempacar | **Resuelto** (se usa una fecha estimada) |
+
+### Por qué los defectos 1 y 2 siguen abiertos y cómo se van a resolver
+
+**La restricción.** La entrega de Calidad se trabaja solo en este repositorio de documentación (el fork de Nicolas). Los repositorios de código (`HayPaComer-backend`, `HayPaComer-db` y `HayPaComer-web`) no se modifican en esta entrega, así que los defectos que encontró la prueba no se pueden corregir aquí. Lo correcto en calidad es no esconderlos: se documentan con su causa, se registran en el tablero y se planean.
+
+**El plan.** Los dos quedaron como issues del sprint 5 (16 al 29 de noviembre), con su responsable y una forma de verificar que quedaron resueltos:
+
+| Issue | Defecto | Solución planeada | Cómo se verifica |
+| --- | --- | --- | --- |
+| [#46](https://github.com/NicoalsD/HayPaComer-docs/issues/46) | Notificaciones en inglés | Migración V91 que copia las frases de `translations` a `message_templates`, en backend y db | Nueva prueba de integración: `GET /notifications` con `Accept-Language: es-CO` devuelve "Solicitud de comida"; `e2e_ui.py` vuelve a pasar esas 2 comprobaciones |
+| [#47](https://github.com/NicoalsD/HayPaComer-docs/issues/47) | 404 de `/market-budget` | Responder **204 No Content** cuando no hay presupuesto, y que la web lo trate como "sin presupuesto" | Se actualizan la prueba de la API y `smoke_api.py` (hoy esperan 404); `e2e_ui.py` vuelve a pasar "sin errores de consola" |
+
+Cuando se cierren, QC007 pasa a **SI** en el plan de pruebas y la prueba de navegador queda en 32 / 32. Los dos son defectos de presentación (un idioma y un mensaje en la consola): no pierden datos ni dejan pasar a nadie sin permiso. Eso lo confirman las 147 comprobaciones de la API, que sí pasan.
 
 ## 7. Tablero en GitHub Projects
 

@@ -82,9 +82,9 @@ Palabras clave:
 
 ## 10 · Lo que encontraron las pruebas · Jenifer (0:50)
 
-> "Una prueba sirve si encuentra cosas. La de navegador encontró dos defectos: las notificaciones de permisos salen en inglés, y hay un recurso que da 404."
+> "Una prueba sirve si encuentra cosas. La de navegador encontró dos defectos: las notificaciones de permisos salen en inglés, y la consulta del presupuesto da 404 cuando la casa todavía no tiene uno."
 
-> "Ya sabemos por qué salen en inglés: las frases del servidor se traducen desde una tabla y las guardamos en otra. Está anotado para arreglarlo."
+> "Ya sabemos la causa de los dos. No los corregimos en esta entrega porque se trabaja solo en el repositorio de documentación y el código no se toca; por eso los registramos en el tablero como issues del sprint 5, cada uno con su solución y con la prueba que va a confirmar que quedó bien. Ninguno pierde datos ni deja pasar a nadie sin permiso: eso lo confirma la prueba de la API."
 >
 > "Y estos cuatro ya están resueltos, cada uno con una prueba que evita que vuelva: el tomate duplicado por la IA, el catálogo que se cortaba en 60 alimentos, la casa que no se podía eliminar y la comida vencida que no viajaba."
 
