@@ -4,9 +4,9 @@ Presentación: `HayPaComer - Calidad (sprint 5)` (13 diapositivas, unos 9 minuto
 
 | Integrante | Diapositivas | Tiempo |
 | --- | --- | --- |
-| Nicolas Diaz | 1, 3, 5, 8, 10 (primera mitad), 12 | ~3:30 |
-| Jenifer Urbano | 6, 7, 10 (segunda mitad), 11 | ~3:00 |
-| Juan Camilo Lopez | 2, 4, 9, 13 | ~2:30 |
+| Nicolas Diaz | 1, 3, 5, 6 (conceptos generales: tablero, niveles de prueba y automatización) | ~2:30 |
+| Jenifer Urbano | 7, 8, 10, 11 (pruebas del proyecto, defectos y agentes de IA) | ~3:05 |
+| Juan Camilo Lopez | 2, 4, 9, 12, 13 (el proyecto, sprints, prueba de navegador, equipo y bloqueos) | ~3:15 |
 
 ## 1 · Portada · Nicolas (0:20)
 
@@ -48,7 +48,7 @@ Palabras clave:
 - **Testcontainers:** levanta la base de datos real en Docker durante la prueba y la borra al terminar.
 - **ArchUnit:** prueba la arquitectura, no un resultado.
 
-## 6 · Cómo se automatizó · Jenifer (0:45)
+## 6 · Cómo se automatizó · Nicolas (0:45)
 
 > "Nadie corre las pruebas a mano. Cuando alguien hace push, GitHub Actions corre `mvn verify`: compila los 8 módulos y ejecuta las 890 pruebas."
 >
@@ -64,7 +64,7 @@ Palabras clave:
 >
 > "Además, Beto solo ve las latas de Ana como alimento privado. Resultado: 2 pruebas, 0 fallos."
 
-## 8 · Prueba 2, API de extremo a extremo · Nicolas (0:40)
+## 8 · Prueba 2, API de extremo a extremo · Jenifer (0:40)
 
 > "La segunda es un script en Python que usa la API como lo haría la app, con tres personas."
 >
@@ -80,13 +80,9 @@ Palabras clave:
 >
 > "Dio 29 de 32. Los 3 fallos no son de la prueba: son defectos reales que encontró, y los vemos en la siguiente."
 
-## 10 · Lo que encontraron las pruebas · Nicolas y Jenifer (0:50)
-
-**Nicolas:**
+## 10 · Lo que encontraron las pruebas · Jenifer (0:50)
 
 > "Una prueba sirve si encuentra cosas. La de navegador encontró dos defectos: las notificaciones de permisos salen en inglés, y hay un recurso que da 404."
-
-**Jenifer:**
 
 > "Ya sabemos por qué salen en inglés: las frases del servidor se traducen desde una tabla y las guardamos en otra. Está anotado para arreglarlo."
 >
@@ -100,13 +96,13 @@ Palabras clave:
 >
 > "Pero la IA no publica sola. Hay un archivo de reglas para el agente, una guía por tarea con su definición de hecho, y el CI bloquea todo si una prueba falla. Las pruebas que escribió la IA también tienen que pasar, y el commit y el push los hacemos nosotros."
 
-## 12 · Quién trabajó en qué · Nicolas (0:30)
+## 12 · Quién trabajó en qué · Juan (0:30)
 
-> "Juan Camilo llevó el dominio, la web con la nevera 3D, el firmware del ESP32 y el despliegue."
+> "Yo llevé el dominio, la web con la nevera 3D, el firmware del ESP32 y el despliegue."
 >
 > "Jenifer llevó el backend, la base de datos, el agente de IA y la analítica, y este sprint las casas, los permisos, las notificaciones y los scripts de prueba."
 >
-> "Yo llevé QA y el plan de pruebas, el tablero y la presentación. Todo esto sale del tablero, donde cada issue tiene su responsable."
+> "Nicolas llevó QA y el plan de pruebas, el tablero y la presentación. Todo esto sale del tablero, donde cada issue tiene su responsable."
 
 ## 13 · Bloqueos y soluciones · Juan, cierre de los tres (0:50)
 
