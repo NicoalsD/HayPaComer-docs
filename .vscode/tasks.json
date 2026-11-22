@@ -1,0 +1,81 @@
+{
+  // Pruebas de HayPaComer para correr desde VS Code: Terminal > Run Task... (o Ctrl+Shift+P > "Tasks: Run Task").
+  // Supone los repos clonados uno al lado del otro en ~/haypacomer, Docker abierto y JDK 25 en /usr/lib/jvm/java-25.
+  // Orden: 1) base de datos, 2) backend; luego cualquier prueba. Las de Maven no necesitan el backend corriendo.
+  "version": "2.0.0",
+  "options": {
+    "env": { "JAVA_HOME": "/usr/lib/jvm/java-25" }
+  },
+  "tasks": [
+    {
+      "label": "1. Base de datos (PostgreSQL + Redis en Docker)",
+      "type": "shell",
+      "command": "docker compose up -d --wait",
+      "options": { "cwd": "${workspaceFolder}/../HayPaComer-db" },
+      "problemMatcher": []
+    },
+    {
+      "label": "2. Backend en http://localhost:8090",
+      "type": "shell",
+      "command": "$HOME/haypacomer/.dev/run-backend.sh",
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": { "regexp": "^__never__$" },
+        "background": { "activesBegin": true, "beginsPattern": "Starting HayPaComerApplication", "endsPattern": "Started HayPaComerApplication" }
+      }
+    },
+    {
+      "label": "Prueba 1 · Integración: MovingFoodIntegrationTest (Maven + Testcontainers)",
+      "type": "shell",
+      "command": "mvn -B -ntp -pl web -am test -Dtest=MovingFoodIntegrationTest -Dsurefire.failIfNoSpecifiedTests=false -Djacoco.skip=true -Dspotless.check.skip=true",
+      "options": { "cwd": "${workspaceFolder}/../HayPaComer-backend" },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Prueba 2 · API de extremo a extremo: smoke_api.py (necesita el backend)",
+      "type": "shell",
+      "command": "python3 -I scripts/qa/smoke_api.py",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Prueba 3 · Navegador de extremo a extremo: e2e_ui.py (necesita el backend)",
+      "type": "shell",
+      "command": "mkdir -p /tmp/haypacomer-e2e && python3 scripts/qa/e2e_ui.py $HOME/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome /tmp/haypacomer-e2e && echo 'Capturas en /tmp/haypacomer-e2e'",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Unitarias nuevas: JoinCodeTest, AccessRequestTest, NotificationChannelsTest",
+      "type": "shell",
+      "command": "mvn -B -ntp -pl domain,application test -Dtest='JoinCodeTest,AccessRequestTest,NotificationChannelsTest' -Dsurefire.failIfNoSpecifiedTests=false -Djacoco.skip=true -Dspotless.check.skip=true",
+      "options": { "cwd": "${workspaceFolder}/../HayPaComer-backend" },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Suite completa del backend: mvn verify (~12 min)",
+      "type": "shell",
+      "command": "mvn -B -ntp verify -Djacoco.skip=true -Dmaven.test.failure.ignore=true && grep -h 'Tests run' */target/surefire-reports/*.txt | awk '{s+=$3} END {print \"Total de pruebas:\", s}'",
+      "options": { "cwd": "${workspaceFolder}/../HayPaComer-backend" },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Pruebas de la web: npm run check",
+      "type": "shell",
+      "command": "npm run check",
+      "options": { "cwd": "${workspaceFolder}/../HayPaComer-web" },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Limpiar las cuentas que crean las pruebas (tmp-* y e2e-*)",
+      "type": "shell",
+      "command": "set -a; . ./.env; set +a; docker compose exec -T postgres psql -U haypacomer -d haypacomer -c \"DELETE FROM households h WHERE NOT EXISTS (SELECT 1 FROM household_members m JOIN users u ON u.id = m.user_id WHERE m.household_id = h.id AND u.email NOT LIKE 'tmp-%@local.test' AND u.email NOT LIKE 'e2e-%@local.test'); DELETE FROM users WHERE email LIKE 'tmp-%@local.test' OR email LIKE 'e2e-%@local.test';\"",
+      "options": { "cwd": "${workspaceFolder}/../HayPaComer-db" },
+      "problemMatcher": []
+    }
+  ]
+}

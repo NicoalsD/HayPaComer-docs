@@ -1,6 +1,7 @@
 """Genera guion-calidad.pdf a partir de guion-calidad.md.
 
-Uso: python3 presentacion/guion_pdf.py <ruta-a-chrome>   (necesita Playwright)
+Uso: python3 presentacion/guion_pdf.py <ruta-a-chrome> [archivo.md]   (necesita Playwright)
+Sin archivo, convierte guion-calidad.md; el PDF queda junto al .md con el mismo nombre.
 """
 import html
 import pathlib
@@ -21,7 +22,9 @@ h2 .who{margin-left:auto;font-family:"Hanken Grotesk",Calibri,sans-serif;font-si
 .say p{margin:5px 0;font-size:13.5px}
 .spk{margin:10px 0 2px;color:#a8481f}
 table{border-collapse:collapse;width:100%;margin:8px 0} th{background:#1c1712;color:#fff;text-align:left} th,td{padding:6px 8px;border-bottom:1px solid #e2d6c1}
-code{background:#efe7d6;padding:0 4px;border-radius:4px} li{margin:3px 0 3px 18px}
+code{background:#efe7d6;padding:0 4px;border-radius:4px} li{margin:3px 0 3px 18px} li.sub{margin-left:38px;list-style:circle}
+h3{font-size:14px;margin:12px 0 4px;color:#a8481f}
+pre{background:#201b16;color:#e9dfcb;padding:10px 12px;border-radius:8px;font-size:11px;white-space:pre-wrap}
 """
 
 
@@ -56,6 +59,20 @@ def to_html(lines):
         if line.startswith("# "):
             flush()
             out.append(f"<h1>{inline(line[2:])}</h1>")
+        elif line.startswith("### "):
+            flush()
+            out.append(f"<h3>{inline(line[4:])}</h3>")
+        elif line.startswith("```"):
+            flush()
+            code = []
+            i += 1
+            while i < len(lines) and not lines[i].startswith("```"):
+                code.append(html.escape(lines[i]))
+                i += 1
+            out.append("<pre>" + "\n".join(code) + "</pre>")
+        elif re.match(r"\d+\. ", line):
+            flush()
+            out.append(f"<li>{inline(re.sub(r'^\d+\. ', '', line))}</li>")
         elif line.startswith("## "):
             flush()
             m = re.match(r"(\d+) · (.+?) · (.+?) \((.+)\)$", line[3:])
@@ -70,6 +87,9 @@ def to_html(lines):
                 i += 1
             out.append('<div class="say">' + "".join(f"<p>{inline(q)}</p>" for q in quote) + "</div>")
             continue
+        elif line.startswith("   - "):
+            flush()
+            out.append(f'<li class="sub">{inline(line[5:])}</li>')
         elif line.startswith("- "):
             flush()
             out.append(f"<li>{inline(line[2:])}</li>")
@@ -87,7 +107,8 @@ def to_html(lines):
 
 def main():
     chrome = sys.argv[1] if len(sys.argv) > 1 else None
-    body = to_html((HERE / "guion-calidad.md").read_text(encoding="utf-8").split("\n"))
+    source = pathlib.Path(sys.argv[2]) if len(sys.argv) > 2 else HERE / "guion-calidad.md"
+    body = to_html(source.read_text(encoding="utf-8").split("\n"))
     doc = f"<!doctype html><html lang=es><head><meta charset=utf-8><style>{STYLE}</style></head><body>{body}</body></html>"
     with tempfile.NamedTemporaryFile("w", suffix=".html", delete=False, encoding="utf-8") as tmp:
         tmp.write(doc)
@@ -95,7 +116,7 @@ def main():
         browser = p.chromium.launch(executable_path=chrome) if chrome else p.chromium.launch()
         page = browser.new_page()
         page.goto("file://" + tmp.name)
-        page.pdf(path=str(HERE / "guion-calidad.pdf"), format="A4", print_background=True,
+        page.pdf(path=str(source.with_suffix(".pdf")), format="A4", print_background=True,
                  margin={"top": "16mm", "bottom": "14mm", "left": "16mm", "right": "16mm"})
         browser.close()
     pathlib.Path(tmp.name).unlink()

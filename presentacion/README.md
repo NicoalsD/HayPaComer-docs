@@ -12,6 +12,7 @@ Corre en el plan gratis de Render, así que se duerme cuando no se usa: la prime
 | --- | --- |
 | `HayPaComer - Calidad (sprint 5).pptx` / `.pdf` | **Presentación de Calidad de Software** (13 diapositivas, con notas): foto del tablero, niveles de prueba, cómo se automatizaron, las 3 pruebas automatizadas con su código y resultado, defectos encontrados, qué se hizo con agentes de IA, quién trabajó en qué y bloqueos |
 | `guion-calidad.md` / `guion-calidad.pdf` | Guion de la presentación de Calidad: qué dice cada integrante en cada diapositiva, tiempos y preguntas probables |
+| `guia-jenifer-pruebas.md` / `.pdf` | Guía de Jenifer: cómo funciona por dentro cada prueba de sus diapositivas (7, 8, 10 y 11) y cómo correrlas en VS Code |
 | `HayPaComer - Presentacion.pptx` | Las 19 diapositivas, con las notas del orador de cada una |
 | `HayPaComer - Presentacion.pdf` | La misma presentación exportada a PDF |
 | `Plan de Pruebas HayPaComer.xlsx` | Plan de pruebas en la plantilla del curso: 25 casos (21 unitarios y 4 de integración), los 25 aprobados el 10/11/2026 |
