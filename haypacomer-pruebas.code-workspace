@@ -1,0 +1,12 @@
+{
+  // Abre el repo de documentación junto al backend y la web, para ver y correr las pruebas de la presentación.
+  // Tareas: Terminal > Run Task (definidas en .vscode/tasks.json).
+  "folders": [
+    { "name": "Docs y scripts de pruebas", "path": "." },
+    { "name": "Backend (solo lectura)", "path": "../HayPaComer-backend" },
+    { "name": "Web (solo lectura)", "path": "../HayPaComer-web" }
+  ],
+  "settings": {
+    "files.readonlyInclude": { "../HayPaComer-backend/**": true, "../HayPaComer-web/**": true }
+  }
+}

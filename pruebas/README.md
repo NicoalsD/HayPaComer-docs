@@ -30,7 +30,18 @@ El detalle de la versión 1.2.0 (los 25 casos del plan con captura de código y 
 | Interfaz web | `node --test` y revisión de textos | **23** | 23 / 23 |
 | API de extremo a extremo | [`scripts/qa/smoke_api.py`](../scripts/qa/smoke_api.py) | **147 comprobaciones** | 147 / 147 |
 | Navegador de extremo a extremo | [`scripts/qa/e2e_ui.py`](../scripts/qa/e2e_ui.py) (Playwright) | **32 comprobaciones** | 29 / 32: **3 fallos reales** (ver 6) |
-| Plan de pruebas del curso (v1.2.0) | [`Plan de Pruebas HayPaComer.xlsx`](../presentacion/Plan%20de%20Pruebas%20HayPaComer.xlsx) | 25 casos | 25 / 25 |
+| Plan de pruebas del curso | [`Plan de Pruebas HayPaComer.xlsx`](../presentacion/Plan%20de%20Pruebas%20HayPaComer.xlsx) | 31 casos (25 de la v1.2.0 + 6 nuevos) | 30 / 31 (QC007 encontró 2 defectos) |
+
+## Pruebas que salen en las diapositivas
+
+| Diapositiva | Prueba | Archivo | Caso en el Excel | Tarea de VS Code |
+| --- | --- | --- | --- | --- |
+| 7 | Integración: la comida viaja con su dueño | [`HayPaComer-backend/web/src/test/java/dev/haypacomer/web/household/MovingFoodIntegrationTest.java`](https://github.com/Juansit-0/HayPaComer-backend/blob/main/web/src/test/java/dev/haypacomer/web/household/MovingFoodIntegrationTest.java) | QC005 | `Prueba 1 · Integración` |
+| 8 | API de extremo a extremo | [`scripts/qa/smoke_api.py`](../scripts/qa/smoke_api.py) | QC006 | `Prueba 2 · API de extremo a extremo` |
+| 9 | Navegador de extremo a extremo | [`scripts/qa/e2e_ui.py`](../scripts/qa/e2e_ui.py) | QC007 | `Prueba 3 · Navegador de extremo a extremo` |
+| 5 y 10 | Unitarias nuevas: código de casa, solicitudes de permiso, notificación dirigida | `JoinCodeTest`, `AccessRequestTest`, `NotificationChannelsTest` (backend) | QA022, QA023, QA024 | `Unitarias nuevas` |
+
+Todas están también en el [plan de pruebas en Excel](../presentacion/Plan%20de%20Pruebas%20HayPaComer.xlsx), que pasa de 25 a 31 casos. Para abrirlas y correrlas en VS Code, abre `haypacomer-pruebas.code-workspace` (en la raíz de este repo) y entra a **Terminal → Run Task**.
 
 ## 2. Tipos de prueba
 
