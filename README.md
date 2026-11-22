@@ -4,7 +4,7 @@ The documentation of **HayPaComer**, the smart fridge that answers "what can I c
 
 **Planning board:** https://github.com/users/NicoalsD/projects/1 (45 issues in 6 sprints, each assigned to its owner).
 
-**Live app:** https://haypacomer.onrender.com (Render free plan: the first request after a while can take a couple of minutes while the service wakes up).
+**Live app:** https://haypacomer.jenilarper.dev (the landing can take a couple of seconds while the service wakes up).
 
 ## What is here
 
