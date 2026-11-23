@@ -9,7 +9,7 @@ Este documento reúne todo lo que pide la entrega de Calidad de Software:
 - quién trabajó en qué;
 - los bloqueos con su solución.
 
-El detalle de la versión 1.2.0 (los 25 casos del plan con captura de código y de resultado, y el catálogo prueba por prueba) sigue en [`../sprint-4/README.md`](../sprint-4/README.md). Aquí está el estado actual (20 y 21 de noviembre de 2026).
+El detalle de la versión 1.2.0 (los 25 casos del plan con captura de código y de resultado, y el catálogo prueba por prueba) sigue en [`casos-del-plan-automatizados.md`](casos-del-plan-automatizados.md). Aquí está el estado actual (20 y 21 de noviembre de 2026).
 
 - [1. Resumen](#1-resumen)
 - [2. Tipos de prueba](#2-tipos-de-prueba)
@@ -28,20 +28,20 @@ El detalle de la versión 1.2.0 (los 25 casos del plan con captura de código y 
 | --- | --- | ---: | --- |
 | Unitarias, integración, API y arquitectura (backend) | JUnit 6, MockMvc, Testcontainers, ArchUnit | **890** | 888 aprobadas; 2 no aplican en local (ver 5) |
 | Interfaz web | `node --test` y revisión de textos | **23** | 23 / 23 |
-| API de extremo a extremo | [`scripts/qa/smoke_api.py`](../scripts/qa/smoke_api.py) | **147 comprobaciones** | 147 / 147 |
-| Navegador de extremo a extremo | [`scripts/qa/e2e_ui.py`](../scripts/qa/e2e_ui.py) (Playwright) | **32 comprobaciones** | 29 / 32: **3 fallos reales** (ver 6) |
-| Plan de pruebas del curso | [`Plan de Pruebas HayPaComer.xlsx`](../presentacion/Plan%20de%20Pruebas%20HayPaComer.xlsx) | 31 casos (25 de la v1.2.0 + 6 nuevos) | 30 / 31 (QC007 encontró 2 defectos) |
+| API de extremo a extremo | [`sprint-4/scripts/smoke_api.py`](scripts/smoke_api.py) | **147 comprobaciones** | 147 / 147 |
+| Navegador de extremo a extremo | [`sprint-4/scripts/e2e_ui.py`](scripts/e2e_ui.py) (Playwright) | **32 comprobaciones** | 29 / 32: **3 fallos reales** (ver 6) |
+| Plan de pruebas del curso | [`Plan de Pruebas HayPaComer.xlsx`](../sprint-3/Plan%20de%20Pruebas%20HayPaComer.xlsx) | 31 casos (25 de la v1.2.0 + 6 nuevos) | 30 / 31 (QC007 encontró 2 defectos) |
 
 ## Pruebas que salen en las diapositivas
 
 | Diapositiva | Prueba | Archivo | Caso en el Excel | Tarea de VS Code |
 | --- | --- | --- | --- | --- |
 | 7 | Integración: la comida viaja con su dueño | [`HayPaComer-backend/web/src/test/java/dev/haypacomer/web/household/MovingFoodIntegrationTest.java`](https://github.com/Juansit-0/HayPaComer-backend/blob/main/web/src/test/java/dev/haypacomer/web/household/MovingFoodIntegrationTest.java) | QC005 | `Prueba 1 · Integración` |
-| 8 | API de extremo a extremo | [`scripts/qa/smoke_api.py`](../scripts/qa/smoke_api.py) | QC006 | `Prueba 2 · API de extremo a extremo` |
-| 9 | Navegador de extremo a extremo | [`scripts/qa/e2e_ui.py`](../scripts/qa/e2e_ui.py) | QC007 | `Prueba 3 · Navegador de extremo a extremo` |
+| 8 | API de extremo a extremo | [`sprint-4/scripts/smoke_api.py`](scripts/smoke_api.py) | QC006 | `Prueba 2 · API de extremo a extremo` |
+| 9 | Navegador de extremo a extremo | [`sprint-4/scripts/e2e_ui.py`](scripts/e2e_ui.py) | QC007 | `Prueba 3 · Navegador de extremo a extremo` |
 | 5 y 10 | Unitarias nuevas: código de casa, solicitudes de permiso, notificación dirigida | `JoinCodeTest`, `AccessRequestTest`, `NotificationChannelsTest` (backend) | QA022, QA023, QA024 | `Unitarias nuevas` |
 
-Todas están también en el [plan de pruebas en Excel](../presentacion/Plan%20de%20Pruebas%20HayPaComer.xlsx), que pasa de 25 a 31 casos. Para abrirlas y correrlas en VS Code, abre `haypacomer-pruebas.code-workspace` (en la raíz de este repo) y entra a **Terminal → Run Task**.
+Todas están también en el [plan de pruebas en Excel](../sprint-3/Plan%20de%20Pruebas%20HayPaComer.xlsx), que pasa de 25 a 31 casos. Para abrirlas y correrlas en VS Code, abre la carpeta de este repo en VS Code y entra a **Terminal → Run Task**.
 
 ## 2. Tipos de prueba
 
@@ -62,9 +62,9 @@ git push  ─►  GitHub Actions  ─►  mvn -B -ntp verify  ─►  ¿todo ver
                                      └─ construye la imagen Docker
 ```
 
-- **En cada push:** GitHub Actions corre `mvn -B -ntp verify` en el backend (workflow en `.github/workflows/ci.yml` del repo backend) y `npm run check` en la web. Si algo falla, el merge queda bloqueado y Render no despliega. Capturas del workflow y de la regla del 80 %: [`../sprint-4/README.md#1-cómo-se-automatizan-las-pruebas`](../sprint-4/README.md#1-cómo-se-automatizan-las-pruebas).
+- **En cada push:** GitHub Actions corre `mvn -B -ntp verify` en el backend (workflow en `.github/workflows/ci.yml` del repo backend) y `npm run check` en la web. Si algo falla, el merge queda bloqueado y Render no despliega. Capturas del workflow y de la regla del 80 %: [`casos-del-plan-automatizados.md#1-cómo-se-automatizan-las-pruebas`](casos-del-plan-automatizados.md#1-cómo-se-automatizan-las-pruebas).
 - **En local:** el mismo comando `mvn -B -ntp verify`, con Docker abierto para Testcontainers y JDK 25.
-- **De extremo a extremo:** los dos scripts de [`scripts/qa`](../scripts/qa/README.md) se corren contra el servidor (`http://localhost:8090` o la URL desplegada). Cada uno imprime `OK` o `FAIL` por comprobación y el total al final.
+- **De extremo a extremo:** los dos scripts de [`sprint-4/scripts`](scripts/README.md) se corren contra el servidor (`http://localhost:8090` o la URL desplegada). Cada uno imprime `OK` o `FAIL` por comprobación y el total al final.
 
 ## 4. Las tres pruebas automatizadas que exponemos
 
@@ -88,7 +88,7 @@ Recorre la API con tres personas y revisa los códigos HTTP y las reglas: una ca
 
 ![Resultado de smoke_api.py: 147 de 147](img/smoke-resultado.png)
 
-Salida completa: [`resultado-smoke.txt`](resultado-smoke.txt).
+Salida completa: [`resultado-smoke.txt`](resultados/resultado-smoke.txt).
 
 ### 4.3 Navegador de extremo a extremo: `e2e_ui.py`
 
@@ -109,7 +109,7 @@ Captura tomada por la prueba en el paso de la notificación:
 
 ![Notificación al dueño](img/e2e-notificacion-dueno.png)
 
-Salida completa: [`resultado-e2e.txt`](resultado-e2e.txt).
+Salida completa: [`resultado-e2e.txt`](resultados/resultado-e2e.txt).
 
 ## 5. Resultados
 
@@ -193,7 +193,7 @@ Estado: **40 hechas** (sprints 1 a 4) y **5 en backlog** (#41 a #44 en el sprint
 | Jenifer Urbano (`Jenifrutica`) | Backend, base de datos, agente de IA, analítica; en noviembre, casas, permisos y notificaciones | 15 / 17 |
 | Nicolas Diaz (`NicoalsD`) | QA y plan de pruebas, tablero en GitHub Projects, presentación | 4 / 4 |
 
-El reparto issue por issue está en [`../sprint-4/README.md#5-asignación-de-tareas`](../sprint-4/README.md#5-asignación-de-tareas).
+El reparto issue por issue está en [`casos-del-plan-automatizados.md#5-asignación-de-tareas`](casos-del-plan-automatizados.md#5-asignación-de-tareas).
 
 ## 10. Bloqueos encontrados y soluciones
 

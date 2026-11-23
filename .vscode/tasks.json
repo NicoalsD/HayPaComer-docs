@@ -35,14 +35,14 @@
     {
       "label": "Prueba 2 · API de extremo a extremo: smoke_api.py (necesita el backend)",
       "type": "shell",
-      "command": "python3 -I scripts/qa/smoke_api.py",
+      "command": "python3 -I sprint-4/scripts/smoke_api.py",
       "group": "test",
       "problemMatcher": []
     },
     {
       "label": "Prueba 3 · Navegador de extremo a extremo: e2e_ui.py (necesita el backend)",
       "type": "shell",
-      "command": "mkdir -p /tmp/haypacomer-e2e && python3 scripts/qa/e2e_ui.py $HOME/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome /tmp/haypacomer-e2e && echo 'Capturas en /tmp/haypacomer-e2e'",
+      "command": "mkdir -p /tmp/haypacomer-e2e && python3 sprint-4/scripts/e2e_ui.py $HOME/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome /tmp/haypacomer-e2e && echo 'Capturas en /tmp/haypacomer-e2e'",
       "group": "test",
       "problemMatcher": []
     },
